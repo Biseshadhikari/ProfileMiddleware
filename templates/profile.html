@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{%block content%}
+    <div class="w-1/2 mx-auto  flex-col flex items-center justify-center mt-10  bg-gray-300 mt-20 h-auto p-3 shadow-xl rounded-md">
+        <hr>
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            <h1 class="text-center text-red-500 text-3xl mb-5 ">Complete your profile</h1>
+            {% for field in form %}
+                <div class="mb-4">
+                    <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+                        {{ field.label }}{% if field.field.required %}<span class="text-red-500">*</span>{% endif %}
+                    </label>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <p class="text-sm text-gray-500">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p class="text-red-500 text-xs italic">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Submit</button>
+        </form>
+    </div>
+   
+    
+{%endblock content%}
